@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="Widget.Theme.MusiumProject.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
+        <item name="exampleColor">@color/light_blue_400</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+</resources>

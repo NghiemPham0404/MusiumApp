@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background3"
+    tools:context=".View.TimeSleeper">
+
+    <ImageButton
+        android:id="@+id/imageButton12"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@null"
+        android:src="@drawable/back_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="Stop audio in"
+            android:textAlignment="center"
+            android:textColor="@color/text1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="End of track"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="5 minutes"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="10 minutes"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="15 minutes"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="30 minutes"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="45 minutes"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gothic_a1_bold"
+            android:letterSpacing="0.006"
+            android:text="1 hour"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text1"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

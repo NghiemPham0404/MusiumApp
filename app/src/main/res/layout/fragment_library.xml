@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background2"
+    tools:context=".View.mainActivityFragments.LibraryFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/musium_logo_2" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gothic_a1_bold"
+                    android:text="Library"
+                    android:textColor="@color/cyan2"
+                    android:textSize="27dp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton8"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:contentDescription="search button"
+                    android:src="@drawable/search" />
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/library_radio"
+                        android:button="@null"
+                        android:fontFamily="@font/gothic_a1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Folder"
+                        android:textColor="@color/text1"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/library_radio"
+                        android:button="@null"
+                        android:fontFamily="@font/gothic_a1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Playlists"
+                        android:textColor="@color/text1"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/library_radio"
+                        android:button="@null"
+                        android:fontFamily="@font/gothic_a1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Artists"
+                        android:textColor="@color/text1"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/library_radio"
+                        android:button="@null"
+                        android:fontFamily="@font/gothic_a1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Albums"
+                        android:textColor="@color/text1"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/library_radio"
+                        android:button="@null"
+                        android:fontFamily="@font/gothic_a1"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Postcasts"
+                        android:textColor="@color/text1"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </HorizontalScrollView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
