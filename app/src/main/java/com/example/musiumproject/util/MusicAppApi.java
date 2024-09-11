@@ -9,6 +9,8 @@ import com.example.musiumproject.responses.TrackResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**  MUSIC APP RESTFUL API*/
@@ -36,9 +38,9 @@ public interface MusicAppApi {
 
     //TODO : TRACKS
     @GET(Credentials.TRACK+"/{track_id}")
-    Call<Track> getTrack(@Query("track_id") int trackId);
+    Call<Track> getTrack(@Path("track_id") int trackId);
 
-    @GET(Credentials.TRACK+"/all")
+    @GET(Credentials.TRACK+"/all/newest")
     Call<TrackResponse> getTracks(@Query("page") int page);
 
     @GET(Credentials.TRACK+"/search")

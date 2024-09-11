@@ -8,6 +8,7 @@ import com.example.musiumproject.AppExecutors;
 import com.example.musiumproject.models.Track;
 import com.example.musiumproject.requests.services.MyService;
 import com.example.musiumproject.responses.TrackResponse;
+import com.example.musiumproject.util.TrackPlayingType;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,10 +22,9 @@ import retrofit2.Response;
 
 @Getter
 public class TrackApiClient {
-    private MutableLiveData<List<Track>> mtracks;
-    private MutableLiveData<List<Track>> mSearchTracks;
+    private MutableLiveData<List<Track>> mtracks, mNewestTracks, mSearchTracks;
     private MutableLiveData<Track> mtrack;
-    private MutableLiveData<Integer> mPage, mTotalPage, mSize;
+    private MutableLiveData<TrackPlayingType> mTrackPlayingType;
 
     ScheduledExecutorService networkIO;
     RetriveTrackRunnable retriveTrackRunnableForTrack;
@@ -42,10 +42,9 @@ public class TrackApiClient {
         mtracks = new MutableLiveData<>();
         mtrack  = new MutableLiveData<>();
         mSearchTracks = new MutableLiveData<>();
+        mNewestTracks = new MutableLiveData<>();
         networkIO = AppExecutors.getInstance().networkIO();
-        mPage = new MutableLiveData<>();
-        mTotalPage = new MutableLiveData<>();
-        mSize = new MutableLiveData<>();
+        mTrackPlayingType = new MutableLiveData<>();
     }
 
     public void getTrackById(int id){
@@ -56,7 +55,23 @@ public class TrackApiClient {
         submitRetriveTrackRunnable(retriveTrackRunnableForTrack);
     }
 
-    public void listTracks(int page){
+    public void listTracksByAlbumID(int albumId){
+
+    }
+    public void listTracksByPlaylistID(int playlistId){
+
+    }
+    public void listTracksByArtistID(int playlistId){
+
+    }
+    public void choosePlayingTrackList(TrackPlayingType trackPlayingType){
+        if(trackPlayingType == TrackPlayingType.newest) {
+            mtracks = mNewestTracks;
+        }
+        this.mTrackPlayingType.postValue(trackPlayingType);
+    }
+
+    public void listNewestTracks(int page){
         if(retriveTrackRunnableForTrack != null){
             retriveTrackRunnableForTrack = null;
         }
@@ -87,12 +102,20 @@ public class TrackApiClient {
         private Integer id;
         private Integer page;
         private String query;
+        private TrackPlayingType trackPlayingType;
         private boolean cancelRequest;
 
         public RetriveTrackRunnable (int id){
             this.id = id;
             cancelRequest = false;
         }
+
+        public RetriveTrackRunnable (int id, TrackPlayingType trackPlayingType){
+            this.id = id;
+            this.trackPlayingType = trackPlayingType;
+            cancelRequest = false;
+        }
+
 
         public RetriveTrackRunnable(String query, int page){
             this.page = page;
@@ -105,13 +128,17 @@ public class TrackApiClient {
             Response response;
                 try {
                     if(id != null){
-                        response =getTrack().execute();
-                        if (cancelRequest) {
-                            return;
-                        }
-                        if(response.isSuccessful()){
-                            Track track = ((Response<Track>)response).body();
-                            parseData(track);
+                        if(trackPlayingType == null){
+                            response =getTrack().execute();
+                            if (cancelRequest) {
+                                return;
+                            }
+                            if(response.isSuccessful()){
+                                Track track = ((Response<Track>)response).body();
+                                parseData(track);
+                            }else{
+                                Log.e("track request 1", response.errorBody().string());
+                            }
                         }
                     }else{
                         if(query != null){
@@ -125,13 +152,15 @@ public class TrackApiClient {
                         if(response.isSuccessful()) {
                             TrackResponse trackResponse =  ((Response<TrackResponse>) response).body();
                             List<Track> tracks = trackResponse.getTracks();
-                            int page = trackResponse.getPage();
-                            int total_page = trackResponse.getTotal_page();
-                            int size = trackResponse.getSize();
-                            pasreListData(tracks, page, total_page, size);
+                            if(query != null){
+                                pasreListData(tracks, mSearchTracks);
+                            }else{
+                                pasreListData(tracks, mNewestTracks);
+                            }
                         }
                     }
                 } catch (IOException e) {
+                    Log.e("track request 2", e.getMessage().toString());
                     throw new RuntimeException(e);
                 }
         }
@@ -140,11 +169,14 @@ public class TrackApiClient {
             mtrack.postValue(track);
         }
 
-        public void pasreListData(List<Track> tracks, int page, int totalPage, int size){
-            mtracks.postValue(tracks);
-            mPage.postValue(page);
-            mTotalPage.postValue(totalPage);
-            mSize.postValue(size);
+        public void pasreListData(List<Track> tracks, MutableLiveData<List<Track>> mList){
+            List<Track> current_tracks = mList.getValue();
+            if(current_tracks == null){
+                mList.postValue(tracks);
+            }else{
+                current_tracks.addAll(tracks);
+                mList.postValue(current_tracks);
+            }
         }
 
         Call<TrackResponse> listTracks(){

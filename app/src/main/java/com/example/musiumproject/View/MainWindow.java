@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.musiumproject.R;
 import com.example.musiumproject.View.mainActivityFragments.HomeFragment;
 import com.example.musiumproject.View.mainActivityFragments.LibraryFragment;
 import com.example.musiumproject.View.mainActivityFragments.SearchFragment;
+import com.example.musiumproject.viewmodels.TrackViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Timer;
@@ -39,8 +41,9 @@ public class MainWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
-        initComponents();
+        TrackViewModel trackViewModel = new ViewModelProvider(this).get(TrackViewModel.class);
         initializeFragments();
+        initComponents();
     }
 
     public void initComponents(){
@@ -60,10 +63,22 @@ public class MainWindow extends AppCompatActivity {
             }
             return true;
         });
+
+        navigationView.setOnNavigationItemReselectedListener(item -> {
+            if (item.getItemId() == R.id.home_nav) {
+                viewPager.setCurrentItem(0);
+            } else if(item.getItemId() == R.id.explore_nav) {
+                viewPager.setCurrentItem(1);
+            } else if (item.getItemId() == R.id.library_nav) {
+                viewPager.setCurrentItem(2);
+            }
+        });
     }
 
     public void initializeFragments(){
         homeFragment =  HomeFragment.newInstance();
+        libraryFragment = LibraryFragment.newInstance();
+        searchFragment = SearchFragment.newInstance();
     }
 
     @Override

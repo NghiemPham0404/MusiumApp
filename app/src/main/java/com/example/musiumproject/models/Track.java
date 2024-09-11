@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Track {
-    protected Integer trackId;
+    protected Integer id;
     private String title;
     private String duration;
     private Date releaseDate;
@@ -19,4 +19,7 @@ public class Track {
     private String playLink;
     private Album album;
     private Set<Artist> artists;
+
+    // artist_str is a string of artist names
+    private String artistStr;
 }

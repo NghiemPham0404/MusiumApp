@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Album {
-    private Integer albumId;
+    private Integer id;
     private String title;
     private String genre;
     private Date releaseDate;

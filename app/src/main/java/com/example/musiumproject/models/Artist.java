@@ -9,7 +9,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Artist {
-    private  Integer artistId;
+    private  Integer id;
 
     private String name;
 

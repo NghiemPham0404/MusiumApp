@@ -19,7 +19,6 @@ public class MyResponse {
     @Expose
     private int page;
 
-
     @SerializedName(TOTAL_PAGE)
     @Expose
     private int total_page;

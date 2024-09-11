@@ -27,7 +27,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton11"
+                    android:id="@+id/backBtn"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="@null"
@@ -50,7 +50,7 @@
                         android:textSize="9dp" />
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/playFromTxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -72,14 +72,14 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/imageView21"
+                android:id="@+id/trackCover"
                 android:layout_width="match_parent"
                 android:layout_height="330dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/song_img_ex" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/trackTitleTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gothic_a1_bold"
@@ -94,7 +94,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/artistStrTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -135,7 +135,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/positionTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -146,13 +146,13 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/durationTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/gothic_a1_bold"
                     android:letterSpacing="0.006"
-                    android:text="2:45"
+                    android:text="00:00"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/text2"
                     android:textSize="12sp" />
@@ -165,7 +165,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton19"
+                    android:id="@+id/mixBtn"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="10dp"
@@ -175,7 +175,7 @@
                     android:src="@drawable/shuffle" />
 
                 <ImageButton
-                    android:id="@+id/imageButton18"
+                    android:id="@+id/backwardBtn"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="10dp"
@@ -184,6 +184,7 @@
                     android:src="@android:drawable/ic_media_previous" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/playBtn"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginLeft="10dp"
@@ -191,7 +192,7 @@
                     android:background="@drawable/button_float">
 
                     <View
-                        android:id="@+id/view7"
+                        android:id="@+id/playBtnSysbol"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@drawable/triangle"
@@ -202,7 +203,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageButton
-                    android:id="@+id/imageButton16"
+                    android:id="@+id/forwardBtn"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="10dp"
