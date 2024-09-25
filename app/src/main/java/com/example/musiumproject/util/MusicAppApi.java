@@ -16,18 +16,18 @@ import retrofit2.http.Query;
 /**  MUSIC APP RESTFUL API*/
 public interface MusicAppApi {
     //TODO : ALBUM
-    @GET(Credentials.ALBUM+"/all")
+    @GET(Credentials.ALBUM+"/all/newest")
     Call<AlbumResponse> getAlbums(@Query("page") int page);
 
     @GET(Credentials.ALBUM+"/{album_id}")
-    Call<Album> getAlbum(@Query("track_id") int trackId);
+    Call<Album> getAlbum(@Path("album_id") int albumId);
 
     @GET(Credentials.ALBUM+"/search")
     Call<AlbumResponse> searchAlbums(@Query("query") String query, @Query("page") int page);
 
     //TODO : ARTISTS
     @GET(Credentials.ARTIST+"/{artist_id}")
-    Call<Artist> getArtist(@Query("artist_id") int trackId);
+    Call<Artist> getArtist(@Path("artist_id") int artistId);
 
     @GET(Credentials.ARTIST+"/all")
     Call<ArtistResponse> getArtists(@Query("page") int page);

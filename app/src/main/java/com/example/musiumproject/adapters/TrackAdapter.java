@@ -2,15 +2,11 @@ package com.example.musiumproject.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -35,20 +31,41 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
     List<Track> tracks;
     Context context;
     TrackPlayingType trackPlayingType;
+    AdapterSize adapterSize;
 
-    public TrackAdapter(Context context){
-        this.context = context;
+    public enum AdapterSize{
+        regular, small;
     }
 
     public TrackAdapter(Context context, TrackPlayingType trackPlayingType){
         this.context = context;
         this.trackPlayingType = trackPlayingType;
+        this.adapterSize = AdapterSize.regular;
+    }
+
+    public TrackAdapter(Context context, TrackPlayingType trackPlayingType, AdapterSize adapterSize){
+        this.context = context;
+        this.trackPlayingType = trackPlayingType;
+        this.adapterSize = adapterSize;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (adapterSize == AdapterSize.regular) {
+            return 1;
+        }
+        return 0;
     }
 
     @androidx.annotation.NonNull
     @Override
     public TrackViewHolder onCreateViewHolder(@androidx.annotation.NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_track, parent, false);
+        View view;
+        if(viewType == 0){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_track_small, parent, false);
+        }else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_track, parent, false);
+        }
         return new TrackViewHolder(view);
     }
 
@@ -89,7 +106,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
         public TrackViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.trackTitle);
-            artists = itemView.findViewById(R.id.trackArtists);
+            artists = itemView.findViewById(R.id.trackArtist);
             cover = itemView.findViewById(R.id.trackCover);
         }
     }

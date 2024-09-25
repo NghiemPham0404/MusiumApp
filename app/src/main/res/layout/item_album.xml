@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/trackCover"
+        android:id="@+id/albumCover"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:scaleType="centerCrop"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/recent_bg" />
 
     <TextView
-        android:id="@+id/trackTitle"
+        android:id="@+id/albumTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
@@ -28,7 +28,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/trackArtist"
+        android:id="@+id/albumArtist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"

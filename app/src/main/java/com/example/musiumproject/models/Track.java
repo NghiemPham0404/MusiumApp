@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class Track {
     protected Integer id;
     private String title;
-    private String duration;
     private Date releaseDate;
     private String trackImg;
     private String playLink;

@@ -72,7 +72,8 @@ public class SongPlaying extends AppCompatActivity implements View.OnClickListen
                 }
             });
             trackViewModel.getLiveListTracks().observe(this, tracks ->{
-                this.tracks = tracks;
+                if(tracks != null)
+                    this.tracks = tracks;
             });
         }
     }
@@ -112,6 +113,10 @@ public class SongPlaying extends AppCompatActivity implements View.OnClickListen
     }
 
     public void initMusicPlayer(){
+        if(musicPlayer != null){
+            musicPlayer.stop();
+            musicPlayer = null;
+        }
         musicPlayer =  new MediaPlayer();
         try {
             musicPlayer.setDataSource(Credentials.STORAGE_URL + Credentials.TRACK + "/" + track.getPlayLink());
@@ -193,8 +198,11 @@ public class SongPlaying extends AppCompatActivity implements View.OnClickListen
 
     private void playNextTrack() {
         if(!tracks.isEmpty()){
-            if(index < tracks.size() -1 ){
+            if(index < tracks.size() -1){
                 trackViewModel.getTrackById(tracks.get(++index).getId());
+            }
+            if(index == tracks.size() -2){
+                trackViewModel.loadNextPlayingTracks();
             }
         }
     }

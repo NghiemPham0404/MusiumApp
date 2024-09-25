@@ -21,5 +21,5 @@ public class Artist {
 
     private List<Track> tracks;
 
-    private List<Album> album;
+    private List<Album> albums;
 }

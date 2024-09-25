@@ -18,4 +18,5 @@ public class Album {
     private String albumCover;
     private List<Track> tracks;
     private Artist artist;
+    private String artistName;
 }

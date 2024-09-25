@@ -1,8 +1,11 @@
 package com.example.musiumproject.repositories;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.musiumproject.models.Track;
+import com.example.musiumproject.request.AlbumApiClient;
+import com.example.musiumproject.request.ArtistApiClient;
 import com.example.musiumproject.request.TrackApiClient;
 import com.example.musiumproject.util.TrackPlayingType;
 
@@ -15,6 +18,8 @@ public class TrackRepository {
 
     private static TrackRepository instance;
     private static TrackApiClient trackApiClient;
+    private static AlbumApiClient albumApiClient;
+    private static ArtistApiClient artistApiClient;
 
     int id, nPage, sPage;
     String query;
@@ -29,18 +34,22 @@ public class TrackRepository {
 
     private TrackRepository(){
           trackApiClient = TrackApiClient.getInstance();
+          albumApiClient = AlbumApiClient.getInstance();
+          artistApiClient = ArtistApiClient.getInstance();
     }
 
     public void choosePlayingTrackList(TrackPlayingType trackPlayingType){
-        trackApiClient.choosePlayingTrackList(trackPlayingType);
         this.trackPlayingType = trackPlayingType;
     }
 
-    public void nextPlayingTrackList(){
-        if(trackPlayingType == TrackPlayingType.newest){
-          listNewestTracksNext();
-        }else{
-            searchTracksNext();
+    public void loadNextPlayingTracks(){
+        switch (trackPlayingType) {
+            case newest:
+                listNewestTracksNext();
+                break;
+            case search:
+                searchTracksNext();
+                break;
         }
     }
 
@@ -67,10 +76,17 @@ public class TrackRepository {
     }
 
     public LiveData<List<Track>> getLiveListTracks(){
-        if(trackPlayingType == TrackPlayingType.newest || trackPlayingType == TrackPlayingType.search){
-            return trackApiClient.getMtracks();
-        }else{
-            return null;
+        switch (trackPlayingType) {
+            case newest:
+               return trackApiClient.getMNewestTracks();
+            case search:
+                return trackApiClient.getMSearchTracks();
+            case album:
+               return albumApiClient.getMTracks();
+            case artist:
+                return artistApiClient.getMTracks();
+            default:
+                return new MutableLiveData<>();
         }
     }
 

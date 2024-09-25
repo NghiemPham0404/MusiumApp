@@ -41,6 +41,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-messaging:23.4.1")
     implementation("com.google.firebase:firebase-analytics:21.6.2")
+    implementation("androidx.activity:activity:1.9.1")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
     implementation("org.projectlombok:lombok:1.18.34")
     compileOnly("org.projectlombok:lombok:1.18.34")

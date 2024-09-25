@@ -22,9 +22,8 @@ import retrofit2.Response;
 
 @Getter
 public class TrackApiClient {
-    private MutableLiveData<List<Track>> mtracks, mNewestTracks, mSearchTracks;
+    private MutableLiveData<List<Track>> mNewestTracks, mSearchTracks;
     private MutableLiveData<Track> mtrack;
-    private MutableLiveData<TrackPlayingType> mTrackPlayingType;
 
     ScheduledExecutorService networkIO;
     RetriveTrackRunnable retriveTrackRunnableForTrack;
@@ -39,12 +38,10 @@ public class TrackApiClient {
     }
 
     public TrackApiClient(){
-        mtracks = new MutableLiveData<>();
         mtrack  = new MutableLiveData<>();
         mSearchTracks = new MutableLiveData<>();
         mNewestTracks = new MutableLiveData<>();
         networkIO = AppExecutors.getInstance().networkIO();
-        mTrackPlayingType = new MutableLiveData<>();
     }
 
     public void getTrackById(int id){
@@ -54,23 +51,6 @@ public class TrackApiClient {
         retriveTrackRunnableForTrack = new RetriveTrackRunnable(id);
         submitRetriveTrackRunnable(retriveTrackRunnableForTrack);
     }
-
-    public void listTracksByAlbumID(int albumId){
-
-    }
-    public void listTracksByPlaylistID(int playlistId){
-
-    }
-    public void listTracksByArtistID(int playlistId){
-
-    }
-    public void choosePlayingTrackList(TrackPlayingType trackPlayingType){
-        if(trackPlayingType == TrackPlayingType.newest) {
-            mtracks = mNewestTracks;
-        }
-        this.mTrackPlayingType.postValue(trackPlayingType);
-    }
-
     public void listNewestTracks(int page){
         if(retriveTrackRunnableForTrack != null){
             retriveTrackRunnableForTrack = null;
@@ -133,31 +113,38 @@ public class TrackApiClient {
                             if (cancelRequest) {
                                 return;
                             }
-                            if(response.isSuccessful()){
-                                Track track = ((Response<Track>)response).body();
-                                parseData(track);
-                            }else{
-                                Log.e("track request 1", response.errorBody().string());
-                            }
+                            parseData(response);
+//                            if(response.isSuccessful()){
+//                                Track track = ((Response<Track>)response).body();
+//                                parseData(track);
+//                            }else{
+//                                Log.e("track request 1", response.errorBody().string());
+//                            }
                         }
                     }else{
                         if(query != null){
                             response = searchTracks().execute();
+                            if (cancelRequest) {
+                                return;
+                            }
+                            parseData(response, mSearchTracks);
+
                         }else{
                             response = listTracks().execute();
-                        }
-                        if (cancelRequest) {
-                            return;
-                        }
-                        if(response.isSuccessful()) {
-                            TrackResponse trackResponse =  ((Response<TrackResponse>) response).body();
-                            List<Track> tracks = trackResponse.getTracks();
-                            if(query != null){
-                                pasreListData(tracks, mSearchTracks);
-                            }else{
-                                pasreListData(tracks, mNewestTracks);
+                            if(cancelRequest){
+                                return;
                             }
+                            parseData(response, mNewestTracks);
                         }
+//                        if(response.isSuccessful()) {
+//                            TrackResponse trackResponse =  ((Response<TrackResponse>) response).body();
+//                            List<Track> tracks = trackResponse.getTracks();
+//                            if(query != null){
+//                                pasreListData(tracks, mSearchTracks);
+//                            }else{
+//                                pasreListData(tracks, mNewestTracks);
+//                            }
+//                        }
                     }
                 } catch (IOException e) {
                     Log.e("track request 2", e.getMessage().toString());
@@ -178,6 +165,29 @@ public class TrackApiClient {
                 mList.postValue(current_tracks);
             }
         }
+
+        private void parseData(Response response){
+            if(response.isSuccessful()){
+                Track track = ((Response<Track>)response).body();
+                 mtrack.postValue(track);
+            }else{
+                Log.e("track request 1", response.errorBody().toString());
+            }
+        }
+        private void parseData(Response response, MutableLiveData<List<Track>> mutableLiveData){
+            if(response.isSuccessful()) {
+                TrackResponse trackResponse =  ((Response<TrackResponse>) response).body();
+                List<Track> tracks = trackResponse.getTracks();
+                List<Track> current_tracks = mutableLiveData.getValue();
+                if(current_tracks == null){
+                    mutableLiveData.postValue(tracks);
+                }else{
+                    current_tracks.addAll(tracks);
+                    mutableLiveData.postValue(current_tracks);
+                }
+            }
+        }
+
 
         Call<TrackResponse> listTracks(){
             return MyService.getMusicAppApi().getTracks(page);

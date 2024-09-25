@@ -26,7 +26,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton11"
+                android:id="@+id/backBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@null"
@@ -54,13 +54,13 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView20"
+            android:id="@+id/playListImage"
             android:layout_width="250dp"
             android:layout_height="250dp"
             app:srcCompat="@drawable/playlist_act_image" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/playListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -71,7 +71,7 @@
             android:textSize="34dp" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/playlistArtist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -81,7 +81,17 @@
             android:textColor="@color/text2"
             android:textSize="13dp" />
 
+        <Button
+            android:id="@+id/startPlayBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/button_2"
+            android:text="play"
+            android:textColor="@color/text1" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trackRecyclerVIew"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

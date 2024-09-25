@@ -36,6 +36,10 @@ public class TrackViewModel extends ViewModel {
         trackRepository.searchTracks(query, page);
     }
 
+    public void loadNextPlayingTracks(){
+        trackRepository.loadNextPlayingTracks();
+    }
+
     public LiveData<List<Track>> getNewestTracks(){
         return trackRepository.getLiveNewestTracks();
     }

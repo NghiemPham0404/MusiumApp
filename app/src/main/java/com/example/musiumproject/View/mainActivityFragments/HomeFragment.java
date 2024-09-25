@@ -14,9 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.musiumproject.R;
+import com.example.musiumproject.View.interfaceForView.ViewInit;
+import com.example.musiumproject.adapters.AlbumAdapter;
 import com.example.musiumproject.adapters.TrackAdapter;
+import com.example.musiumproject.models.Album;
 import com.example.musiumproject.models.Track;
 import com.example.musiumproject.util.TrackPlayingType;
+import com.example.musiumproject.viewmodels.AlbumViewModel;
 import com.example.musiumproject.viewmodels.TrackViewModel;
 
 import java.util.List;
@@ -27,9 +31,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    RecyclerView trackRecyclerView;
+    RecyclerView trackRecyclerView, albumRecyclerView;
     private TrackViewModel trackViewModel;
+    private AlbumViewModel albumViewModel;
     private TrackAdapter trackAdapter;
+    private AlbumAdapter albumAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,6 +52,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         trackViewModel = new ViewModelProvider(this).get(TrackViewModel.class);
+        albumViewModel = new ViewModelProvider(this).get(AlbumViewModel.class);
         observeAnyChanges();
     }
 
@@ -61,25 +68,32 @@ public class HomeFragment extends Fragment {
 
     public void observeAnyChanges(){
         if(trackViewModel!=null){
-           trackViewModel.getLiveListTracks().observe(this, new Observer<List<Track>>() {
-               @Override
-               public void onChanged(List<Track> tracks) {
-                   if(tracks!= null){
-                       trackAdapter.setTracks(tracks);
-                       trackAdapter.notifyDataSetChanged();
-                   }
+           trackViewModel.getNewestTracks().observe(this, tracks -> {
+               if(tracks!= null){
+                   trackAdapter.setTracks(tracks);
+                   trackAdapter.notifyDataSetChanged();
                }
            });
+        }
+        if(albumViewModel!=null){
+            albumViewModel.getLiveNewestAlbums().observe(this, albums -> {
+                if(albums!=null){
+                    albumAdapter.setAlbums(albums);
+                    albumAdapter.notifyDataSetChanged();
+                }
+            });
         }
     }
 
     public void initComponents(View view){
         trackRecyclerView = view.findViewById(R.id.trackRecyclerView);
+        albumRecyclerView = view.findViewById(R.id.albumRecyclerView);
         configureRecyclerViews();
     }
 
     public void initFeatures(){
         trackViewModel.listNewestTracks(1);
+        albumViewModel.listNewestAlbums(1);
     }
     public void configureRecyclerViews(){
         trackRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -94,5 +108,9 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        albumRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        albumAdapter = new AlbumAdapter(getContext());
+        albumRecyclerView.setAdapter(albumAdapter);
     }
 }
